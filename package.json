@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm i",
+    "start": "node index.js",
+    "test": "nyc --reporter=text mocha --exit",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "rate-limit"
+  ],
+  "author": "Tony",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.1",
+    "module-alias": "^2.2.2",
+    "nyc": "^14.1.1"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@config": "./config",
+    "@controller": "./controller",
+    "@middleware": "./middleware"
+  }
+}

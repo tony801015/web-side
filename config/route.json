@@ -1,0 +1,8 @@
+{
+  "routes": [
+    {
+      "httpMethod": "get",
+      "urlPath": "/dcard"
+    }
+  ]
+}
