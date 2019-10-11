@@ -1,5 +1,5 @@
-# Test
-.nyc_output/
-
 # Dependency directories
 node_modules/
+
+# test
+coverage/

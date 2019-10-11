@@ -1,48 +1,41 @@
-const chai = require('chai');
-const chaiHttp = require('chai-http');
+const supertest = require('supertest');
 const app = require('../index.js');
+const http = require('http');
+const Redis = require('ioredis');
+const { REDIS } = require('@config/index')
+const redis = new Redis({
+    host: REDIS.HOST,
+    port: REDIS.PORT,
+})
 
-chai.use(chaiHttp);
-chai.should();
 
-describe("Route", () => {
-  it("Rate limit", (done) => {
-    // Max 60
-    for (var index = 0; index < 60; index++) {
-      chai.request(app)
-        .get('/web/dcard')
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-        });
-    }
-    // Over request times 61
-    chai.request(app)
-      .get('/web/dcard')
-      .end((err, res) => {
-        res.should.have.status(429);
-        res.body.should.be.a('object');
+describe('Rate limit',()=>{
+    beforeAll(async (done) => {
+        server = http.createServer(app);
+        server.listen(done);
+        request = supertest(server);
+        await redis.del('::ffff:127.0.0.1');
+      });
+    
+      afterAll((done) => {
+        server.close(done);
+      });
+      
+      it('returns 404', async () => {
+        const response = await request.get('/');
+        expect(response.status).toBe(404);
       });
 
-    // WINDOW_MS change to 1000ms 
-    // setTimeout(() => {
-    //   chai.request(app)
-    //     .get('/web/dcard')
-    //     .end((err, res) => {
-    //       res.should.have.status(200);
-    //       res.body.should.be.a('object');
-    //     });
-    done();
-    // }, 1100)
-  });
+    it('Request', async () =>{
+        const result = await request.get('/web/dcard');
+        expect(result.status).toBe(200);
+    })
 
-  it("Url not found", (done) => {
-    chai.request(app)
-      .get('/test')
-      .end((err, res) => {
-        res.should.have.status(404);
-        res.body.should.be.a('object');
-      });
-    done();
-  });
-});
+    it('Request', async () =>{
+        let result;
+        for (let i =0; i < 60; i++){
+            result = await request.get('/web/dcard');
+        }
+        expect(result.status).toBe(429);
+    })
+})
