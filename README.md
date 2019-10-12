@@ -15,6 +15,7 @@ npm install
 ```
 
 # Usage
+Before starting, ran redis by docker. Use reids to record IP, requestTimes and expire time on the `rate-limit`.
 ```
 npm start
 ```
@@ -24,11 +25,11 @@ Open browser [http://127.0.0.1:3000/web/dcard](http://127.0.0.1:3000/web/dcard)
 npm run dev
 ```
 ## Running the tests
-Unit test 
+Unit test - test rateLimit.js in the lib.
 ```
 npm test
 ```
-e2e test
+e2e test - test server up and running.
 ```
 npm run e2e
 ```
