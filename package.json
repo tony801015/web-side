@@ -19,9 +19,6 @@
     "express": "4.17.1",
     "ioredis": "4.14.1"
   },
-  "directories": {
-    "lib": "lib"
-  },
   "devDependencies": {
     "module-alias": "2.2.2",
     "nodemon": "1.19.3",
