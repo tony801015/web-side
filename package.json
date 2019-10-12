@@ -2,13 +2,13 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "prestart": "npm i && sh ./script/redis.sh",
-    "start": "node index.js",
-    "test": "jest --coverage",
+    "start": "node app.js",
+    "test": "npm i && jest ./tests/lib/* --coverage",
     "e2e": "npm run prestart && jest --forceExit --coverage",
-    "dev": "nodemon index.js"
+    "dev": "nodemon app.js"
   },
   "keywords": [
     "rate-limit"
@@ -16,17 +16,17 @@
   "author": "Tony",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "ioredis": "^4.14.1"
+    "express": "4.17.1",
+    "ioredis": "4.14.1"
   },
   "directories": {
     "lib": "lib"
   },
   "devDependencies": {
-    "module-alias": "^2.2.2",
-    "nodemon": "^1.19.3",
-    "jest": "^24.9.0",
-    "supertest": "^4.0.2"
+    "module-alias": "2.2.2",
+    "nodemon": "1.19.3",
+    "jest": "24.9.0",
+    "supertest": "4.0.2"
   },
   "_moduleAliases": {
     "@root": ".",
@@ -37,6 +37,7 @@
   },
   "jest": {
     "moduleNameMapper": {
+      "@root/(.*)": "<rootDir>/$1",
       "@lib/(.*)": "<rootDir>/lib/$1",
       "@config/(.*)": "<rootDir>/config/$1",
       "@controller/(.*)": "<rootDir>/controller/$1",

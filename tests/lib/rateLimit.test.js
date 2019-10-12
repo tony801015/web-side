@@ -1,4 +1,4 @@
-const redis = require('./__mocks__/redis');
+const redis = require('../__mocks__/redis');
 
 jest.setMock('ioredis', redis);
 
